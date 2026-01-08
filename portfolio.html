@@ -1,1 +1,434 @@
-এখানে আপনার HTML বসাবেন✅
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Osman - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #0ea5e9, #818cf8);
+            --accent-color: #38bdf8;
+            --ring-color-1: #0ea5e9;
+            --ring-color-2: #22d3ee;
+            --ring-color-3: #818cf8;
+            --ring-color-4: #c084fc;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --verified-blue: #1d9bf0;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: #f1f5f9;
+                --card-bg: #ffffff;
+                --text-primary: #1e293b;
+                --text-secondary: #64748b;
+                --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Profile Section */
+        .profile-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            width: 142px; /* 132px image + 5px border allowance */
+            height: 142px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        /* Spinning Ring */
+        .image-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 3px; 
+            background: conic-gradient(
+                var(--ring-color-1), 
+                var(--ring-color-2), 
+                var(--ring-color-3), 
+                var(--ring-color-4), 
+                var(--ring-color-1)
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 2s linear infinite;
+        }
+
+        .profile-img {
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-color); /* Cut-out effect */
+            z-index: 1;
+            transition: border-color 0.3s ease;
+        }
+
+        .name-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .name-badge h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .verified-icon {
+            color: var(--verified-blue);
+            font-size: 1.1rem;
+        }
+
+        /* Bio Typing */
+        .bio-container {
+            text-align: center;
+            margin-bottom: 25px;
+            height: 24px; /* Prevent layout shift */
+        }
+
+        .typing-text {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: var(--accent-color);
+            animation: blink 1s infinite;
+            margin-left: 2px;
+            height: 1rem;
+            vertical-align: middle;
+        }
+
+        /* Info Card */
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Contact Button */
+        .contact-btn-wrapper {
+            margin-bottom: 15px;
+        }
+
+        .contact-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .contact-btn:active {
+            transform: scale(0.97);
+        }
+
+        .contact-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section (Hidden) */
+        .contact-section {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.4s ease;
+        }
+
+        .contact-section.open {
+            max-height: 500px; /* Arbitrary large height */
+            opacity: 1;
+            margin-bottom: 25px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            color: white;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .social-link:active {
+            transform: scale(0.96);
+        }
+
+        .social-link.full-width {
+            grid-column: span 2;
+        }
+
+        /* Brand Colors */
+        .fb { background: #1877f2; }
+        .msg { background: linear-gradient(to right, #00b2ff, #006aff); }
+        .wa { background: #25d366; }
+        .tg { background: #229ed9; }
+        .yt { background: #ff0000; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-secondary);
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-icons a {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-wrapper">
+            <div class="image-container">
+                <img src="https://visiting-moccasin-gkbwt5xng5.edgeone.app/freepik__osmangraphice-it-looks-like-youve-uploaded-an-imag__66453.jpeg" alt="Profile" class="profile-img">
+            </div>
+            
+            <div class="name-badge">
+                <h1>Admin Osman</h1>
+                <span class="fa-stack fa-1x verified-icon">
+                    <i class="fas fa-certificate fa-stack-2x"></i>
+                    <i class="fas fa-check fa-stack-1x fa-inverse" style="font-size: 0.5em;"></i>
+                </span>
+            </div>
+            
+            <div class="bio-container">
+                <span id="typing-text" class="typing-text"></span><span class="cursor">|</span>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-row">
+                <span class="label">Age</span>
+                <span class="value">20+</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Gender</span>
+                <span class="value">male</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Religion</span>
+                <span class="value">Islam</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Country</span>
+                <span class="value">Bangladesh</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Address</span>
+                <span class="value">Khagrachhari Mohalchhari</span>
+            </div>
+        </div>
+
+        <div class="contact-btn-wrapper">
+            <button class="contact-btn" id="toggleBtn">
+                Contact Me <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <div class="contact-section" id="contactSection">
+            <div class="social-grid">
+                <a href="https://www.facebook.com/OsmanGraphic" target="_blank" class="social-link fb full-width">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://m.me/OsmanGraphic" target="_blank" class="social-link msg">
+                    <i class="fab fa-facebook-messenger"></i> Messenger
+                </a>
+                <a href="https://wa.me/8801575715571" target="_blank" class="social-link wa">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://t.me/osmantechverse" target="_blank" class="social-link tg">
+                    <i class="fab fa-telegram-plane"></i> Telegram
+                </a>
+                <a href="https://youtube.com/@osmantechvers" target="_blank" class="social-link yt">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Osman Techverse. All rights reserved.</p>
+            <div class="footer-icons">
+                <a href="https://www.facebook.com/OsmanGraphic" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801575715571" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/osmantechverse" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://youtube.com/@osmantechvers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Typing Animation
+        const textToType = "Web Developer ";
+        const typingElement = document.getElementById('typing-text');
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                typingElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // Contact Toggle Logic
+        const toggleBtn = document.getElementById('toggleBtn');
+        const contactSection = document.getElementById('contactSection');
+
+        toggleBtn.addEventListener('click', () => {
+            contactSection.classList.toggle('open');
+            toggleBtn.classList.toggle('active');
+            
+            // Icon Switch Logic (though CSS rotation handles orientation, purely visual check)
+            const icon = toggleBtn.querySelector('i');
+            if (contactSection.classList.contains('open')) {
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                icon.className = 'fas fa-chevron-down';
+            }
+        });
+
+        // Start typing on load
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
